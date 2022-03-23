@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 
 void showSnackBar(GlobalKey<ScaffoldState> globalKey, String message) {
   final snackBar = SnackBar(content: Text(message));
-  globalKey.currentState.hideCurrentSnackBar();
-  globalKey.currentState.showSnackBar(snackBar);
+  globalKey.currentState!.hideCurrentSnackBar();
+  globalKey.currentState!.showSnackBar(snackBar);
 }
 
 String compareAndCombineIds(String userID1, String userID2) {

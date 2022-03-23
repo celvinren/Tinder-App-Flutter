@@ -26,20 +26,20 @@ class CustomModalProgressHUD extends StatelessWidget {
   final double opacity;
   final Color color;
   final Widget progressIndicator;
-  final Offset offset;
+  final Offset? offset;
   final bool dismissible;
   final Widget child;
 
   CustomModalProgressHUD({
-    Key key,
-    @required this.inAsyncCall,
+    Key? key,
+    required this.inAsyncCall,
     this.opacity = 0.3,
     this.color = Colors.transparent,
     this.progressIndicator = const CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(kAccentColor)),
     this.offset,
     this.dismissible = false,
-    @required this.child,
+    required this.child,
   })  : assert(child != null),
         assert(inAsyncCall != null),
         super(key: key);
@@ -55,8 +55,8 @@ class CustomModalProgressHUD extends StatelessWidget {
       else {
         layOutProgressIndicator = Positioned(
           child: progressIndicator,
-          left: offset.dx,
-          top: offset.dy,
+          left: offset!.dx,
+          top: offset!.dy,
         );
       }
       final modal = [

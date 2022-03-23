@@ -11,8 +11,8 @@ class InputDialog extends StatefulWidget {
   _InputDialogState createState() => _InputDialogState();
 
   InputDialog(
-      {@required this.labelText,
-      @required this.onSavePressed,
+      {required this.labelText,
+      required this.onSavePressed,
       this.startInputText = ''});
 }
 

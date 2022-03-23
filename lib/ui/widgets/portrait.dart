@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
 
 class Portrait extends StatelessWidget {
-  final String imageUrl;
+  final String? imageUrl;
   final double height;
 
   Portrait({this.imageUrl, this.height = 225.0});
@@ -17,8 +17,8 @@ class Portrait extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(25.0))),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(22.0),
-        child: imageUrl.isNotEmpty
-            ? Image.network(imageUrl, fit: BoxFit.fitHeight)
+        child: imageUrl!.isNotEmpty
+            ? Image.network(imageUrl!, fit: BoxFit.fitHeight)
             : null,
       ),
     );

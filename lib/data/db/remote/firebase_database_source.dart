@@ -12,7 +12,7 @@ class FirebaseDatabaseSource {
     instance.collection('users').doc(user.id).set(user.toMap());
   }
 
-  void addMatch(String userId, Match match) {
+  void addMatch(String? userId, Match match) {
     instance
         .collection('users')
         .doc(userId)
@@ -25,7 +25,7 @@ class FirebaseDatabaseSource {
     instance.collection('chats').doc(chat.id).set(chat.toMap());
   }
 
-  void addMessage(String chatId, Message message) {
+  void addMessage(String? chatId, Message message) {
     instance
         .collection('chats')
         .doc(chatId)
@@ -33,7 +33,7 @@ class FirebaseDatabaseSource {
         .add(message.toMap());
   }
 
-  void addSwipedUser(String userId, Swipe swipe) {
+  void addSwipedUser(String? userId, Swipe swipe) {
     instance
         .collection('users')
         .doc(userId)
@@ -50,7 +50,7 @@ class FirebaseDatabaseSource {
     instance.collection('chats').doc(chat.id).update(chat.toMap());
   }
 
-  void updateMessage(String chatId, String messageId, Message message) {
+  void updateMessage(String? chatId, String messageId, Message message) {
     instance
         .collection('chats')
         .doc(chatId)
@@ -59,11 +59,11 @@ class FirebaseDatabaseSource {
         .update(message.toMap());
   }
 
-  Future<DocumentSnapshot> getUser(String userId) {
+  Future<DocumentSnapshot> getUser(String? userId) {
     return instance.collection('users').doc(userId).get();
   }
 
-  Future<DocumentSnapshot> getSwipe(String userId, String swipeId) {
+  Future<DocumentSnapshot> getSwipe(String? userId, String? swipeId) {
     return instance
         .collection('users')
         .doc(userId)
@@ -72,7 +72,7 @@ class FirebaseDatabaseSource {
         .get();
   }
 
-  Future<QuerySnapshot> getMatches(String userId) {
+  Future<QuerySnapshot> getMatches(String? userId) {
     return instance.collection('users').doc(userId).collection('matches').get();
   }
 
@@ -81,7 +81,7 @@ class FirebaseDatabaseSource {
   }
 
   Future<QuerySnapshot> getPersonsToMatchWith(
-      int limit, List<String> ignoreIds) {
+      int limit, List<String?>? ignoreIds) {
     return instance
         .collection('users')
         .where('id', whereNotIn: ignoreIds)
@@ -89,15 +89,15 @@ class FirebaseDatabaseSource {
         .get();
   }
 
-  Future<QuerySnapshot> getSwipes(String userId) {
+  Future<QuerySnapshot> getSwipes(String? userId) {
     return instance.collection('users').doc(userId).collection('swipes').get();
   }
 
-  Stream<DocumentSnapshot> observeUser(String userId) {
+  Stream<DocumentSnapshot> observeUser(String? userId) {
     return instance.collection('users').doc(userId).snapshots();
   }
 
-  Stream<QuerySnapshot> observeMessages(String chatId) {
+  Stream<QuerySnapshot> observeMessages(String? chatId) {
     return instance
         .collection('chats')
         .doc(chatId)
@@ -106,7 +106,7 @@ class FirebaseDatabaseSource {
         .snapshots();
   }
 
-  Stream<DocumentSnapshot> observeChat(String chatId) {
+  Stream<DocumentSnapshot> observeChat(String? chatId) {
     return instance.collection('chats').doc(chatId).snapshots();
   }
 }

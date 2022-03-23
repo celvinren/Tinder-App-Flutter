@@ -5,7 +5,7 @@ import 'package:tinder_app_flutter/util/constants.dart';
 class ChatTopBar extends StatelessWidget {
   final AppUser user;
 
-  ChatTopBar({@required this.user});
+  ChatTopBar({required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class ChatTopBar extends StatelessWidget {
             Container(
               child: CircleAvatar(
                   radius: 22,
-                  backgroundImage: NetworkImage(user.profilePhotoPath)),
+                  backgroundImage: NetworkImage(user.profilePhotoPath!)),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(color: kAccentColor, width: 1.0),
@@ -30,7 +30,7 @@ class ChatTopBar extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              user.name,
+              user.name!,
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ],

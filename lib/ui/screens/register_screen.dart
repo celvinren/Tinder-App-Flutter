@@ -28,7 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final int _endScreenIndex = 3;
   int _currentScreenIndex = 0;
   bool _isLoading = false;
-  UserProvider _userProvider;
+  late UserProvider _userProvider;
 
   @override
   void initState() {
@@ -72,7 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         return NameScreen(
             onChanged: (value) => {_userRegistration.name = value});
       case 1:
-        return AgeScreen(onChanged: (value) => {_userRegistration.age = value});
+        return AgeScreen(onChanged: (value) => {_userRegistration.age = value as int});
       case 2:
         return AddPhotoScreen(
             onPhotoChanged: (value) =>

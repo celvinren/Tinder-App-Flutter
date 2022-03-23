@@ -35,7 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         margin: EdgeInsets.only(bottom: 40),
         child: Consumer<UserProvider>(builder: (context, userProvider, child) {
-          return FutureBuilder<AppUser>(
+          return FutureBuilder<AppUser?>(
               future: userProvider.user,
               builder: (context, userSnapshot) {
                 return CustomModalProgressHUD(
@@ -43,13 +43,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         userProvider.user == null || userProvider.isLoading,
                     child: userSnapshot.hasData
                         ? Column(children: [
-                            getProfileImage(userSnapshot.data, userProvider),
+                            getProfileImage(userSnapshot.data!, userProvider),
                             SizedBox(height: 20),
                             Text(
-                                '${userSnapshot.data.name}, ${userSnapshot.data.age}',
+                                '${userSnapshot.data!.name}, ${userSnapshot.data!.age}',
                                 style: Theme.of(context).textTheme.headline4),
                             SizedBox(height: 40),
-                            getBio(userSnapshot.data, userProvider),
+                            getBio(userSnapshot.data!, userProvider),
                             Expanded(child: Container()),
                             RoundedButton(
                                 text: 'LOGOUT',
@@ -103,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         Container(
           child: CircleAvatar(
-            backgroundImage: NetworkImage(user.profilePhotoPath),
+            backgroundImage: NetworkImage(user.profilePhotoPath!),
             radius: 75,
           ),
           decoration: BoxDecoration(

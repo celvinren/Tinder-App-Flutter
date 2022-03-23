@@ -4,21 +4,21 @@ import 'package:tinder_app_flutter/data/model/chats_observer.dart';
 import 'package:tinder_app_flutter/ui/widgets/chat_list_tile.dart';
 
 class ChatsList extends StatefulWidget {
-  final List<ChatWithUser> chatWithUserList;
+  final List<ChatWithUser>? chatWithUserList;
   final Function(ChatWithUser) onChatWithUserTap;
-  final String myUserId;
+  final String? myUserId;
 
   ChatsList(
-      {@required this.chatWithUserList,
-      @required this.onChatWithUserTap,
-      @required this.myUserId});
+      {required this.chatWithUserList,
+      required this.onChatWithUserTap,
+      required this.myUserId});
 
   @override
   _ChatsListState createState() => _ChatsListState();
 }
 
 class _ChatsListState extends State<ChatsList> {
-  ChatsObserver _chatsObserver;
+  late ChatsObserver _chatsObserver;
 
   @override
   void initState() {
@@ -39,8 +39,8 @@ class _ChatsListState extends State<ChatsList> {
   }
 
   bool changeMessageSeen(int index) {
-    return widget.chatWithUserList[index].chat.lastMessage.seen == false &&
-        widget.chatWithUserList[index].chat.lastMessage.senderId !=
+    return widget.chatWithUserList![index].chat.lastMessage!.seen == false &&
+        widget.chatWithUserList![index].chat.lastMessage!.senderId !=
             widget.myUserId;
   }
 
@@ -49,16 +49,16 @@ class _ChatsListState extends State<ChatsList> {
     return new ListView.separated(
       separatorBuilder: (BuildContext context, int index) =>
           Divider(color: Colors.grey),
-      itemCount: widget.chatWithUserList.length,
+      itemCount: widget.chatWithUserList!.length,
       itemBuilder: (BuildContext _, int index) => ChatListTile(
-        chatWithUser: widget.chatWithUserList[index],
+        chatWithUser: widget.chatWithUserList![index],
         onTap: () {
-          if (widget.chatWithUserList[index].chat.lastMessage != null &&
+          if (widget.chatWithUserList![index].chat.lastMessage != null &&
               changeMessageSeen(index)) {
-            widget.chatWithUserList[index].chat.lastMessage.seen = true;
+            widget.chatWithUserList![index].chat.lastMessage!.seen = true;
             chatUpdated();
           }
-          widget.onChatWithUserTap(widget.chatWithUserList[index]);
+          widget.onChatWithUserTap(widget.chatWithUserList![index]);
         },
         onLongPress: () {},
         myUserId: widget.myUserId,

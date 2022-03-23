@@ -65,22 +65,22 @@ class MyApp extends StatelessWidget {
           RegisterScreen.id: (context) => RegisterScreen(),
           TopNavigationScreen.id: (context) => TopNavigationScreen(),
           MatchedScreen.id: (context) => MatchedScreen(
-                myProfilePhotoPath: (ModalRoute.of(context).settings.arguments
+                myProfilePhotoPath: (ModalRoute.of(context)!.settings.arguments
                     as Map)['my_profile_photo_path'],
-                myUserId: (ModalRoute.of(context).settings.arguments
+                myUserId: (ModalRoute.of(context)!.settings.arguments
                     as Map)['my_user_id'],
-                otherUserProfilePhotoPath: (ModalRoute.of(context)
+                otherUserProfilePhotoPath: (ModalRoute.of(context)!
                     .settings
                     .arguments as Map)['other_user_profile_photo_path'],
-                otherUserId: (ModalRoute.of(context).settings.arguments
+                otherUserId: (ModalRoute.of(context)!.settings.arguments
                     as Map)['other_user_id'],
               ),
           ChatScreen.id: (context) => ChatScreen(
-                chatId: (ModalRoute.of(context).settings.arguments
+                chatId: (ModalRoute.of(context)!.settings.arguments
                     as Map)['chat_id'],
-                otherUserId: (ModalRoute.of(context).settings.arguments
+                otherUserId: (ModalRoute.of(context)!.settings.arguments
                     as Map)['other_user_id'],
-                myUserId: (ModalRoute.of(context).settings.arguments
+                myUserId: (ModalRoute.of(context)!.settings.arguments
                     as Map)['user_id'],
               ),
         },

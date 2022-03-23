@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String _inputEmail = '';
   String _inputPassword = '';
   bool _isLoading = false;
-  UserProvider _userProvider;
+  late UserProvider _userProvider;
 
   @override
   void initState() {

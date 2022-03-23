@@ -4,9 +4,9 @@ import 'package:tinder_app_flutter/ui/widgets/rounded_icon_button.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
 
 class SwipeCard extends StatefulWidget {
-  final AppUser person;
+  final AppUser? person;
 
-  SwipeCard({@required this.person});
+  SwipeCard({required this.person});
 
   @override
   _SwipeCardState createState() => _SwipeCardState();
@@ -25,7 +25,7 @@ class _SwipeCardState extends State<SwipeCard> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(25.0),
             child:
-                Image.network(widget.person.profilePhotoPath, fit: BoxFit.fill),
+                Image.network(widget.person!.profilePhotoPath!, fit: BoxFit.fill),
           ),
         ),
         Positioned(
@@ -61,10 +61,10 @@ class _SwipeCardState extends State<SwipeCard> {
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 TextSpan(
-                  text: widget.person.name,
+                  text: widget.person!.name,
                   style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
                 ),
-                TextSpan(text: '  ${widget.person.age}', style: TextStyle(fontSize: 20)),
+                TextSpan(text: '  ${widget.person!.age}', style: TextStyle(fontSize: 20)),
               ],
             )),
           ],
@@ -108,8 +108,8 @@ class _SwipeCardState extends State<SwipeCard> {
                 child: Opacity(
                   opacity: 0.8,
                   child: Text(
-                    widget.person.bio.length > 0
-                        ? widget.person.bio
+                    widget.person!.bio.length > 0
+                        ? widget.person!.bio
                         : "No bio.",
                     style: Theme.of(context).textTheme.bodyText1,
                   ),

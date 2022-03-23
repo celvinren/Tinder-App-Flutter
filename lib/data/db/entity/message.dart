@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Message {
-  int epochTimeMs;
-  bool seen;
-  String senderId;
-  String text;
+  int? epochTimeMs;
+  bool? seen;
+  String? senderId;
+  String? text;
 
   Message(this.epochTimeMs, this.seen, this.senderId, this.text);
 

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Swipe {
-  String id;
-  bool liked;
+  String? id;
+  bool? liked;
 
   Swipe(this.id, this.liked);
 

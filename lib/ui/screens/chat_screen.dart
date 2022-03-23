@@ -15,17 +15,13 @@ class ChatScreen extends StatelessWidget {
 
   static const String id = 'chat_screen';
 
-  final String chatId;
-  final String myUserId;
-  final String otherUserId;
+  final String? chatId;
+  final String? myUserId;
+  final String? otherUserId;
 
-  ChatScreen(
-      {@required this.chatId,
-      @required this.myUserId,
-      @required this.otherUserId});
+  ChatScreen({required this.chatId, required this.myUserId, required this.otherUserId});
 
-  void checkAndUpdateLastMessageSeen(
-      Message lastMessage, String messageId, String myUserId) {
+  void checkAndUpdateLastMessageSeen(Message lastMessage, String messageId, String? myUserId) {
     if (lastMessage.seen == false && lastMessage.senderId != myUserId) {
       lastMessage.seen = true;
       Chat updatedChat = Chat(chatId, lastMessage);
@@ -39,8 +35,7 @@ class ChatScreen extends StatelessWidget {
     int halfHourInMilli = 1800000;
 
     if (messageBefore != null) {
-      if ((messageBefore.epochTimeMs - currMessage.epochTimeMs).abs() >
-          halfHourInMilli) {
+      if ((messageBefore.epochTimeMs! - currMessage.epochTimeMs!).abs() > halfHourInMilli) {
         return true;
       }
     }
@@ -55,7 +50,7 @@ class ChatScreen extends StatelessWidget {
                 stream: _databaseSource.observeUser(otherUserId),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) return Container();
-                  return ChatTopBar(user: AppUser.fromSnapshot(snapshot.data));
+                  return ChatTopBar(user: AppUser.fromSnapshot(snapshot.data!));
                 })),
         body: Column(children: [
           Expanded(
@@ -64,22 +59,22 @@ class ChatScreen extends StatelessWidget {
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) return Container();
                     List<Message> messages = [];
-                    snapshot.data.docs.forEach((element) {
+                    snapshot.data!.docs.forEach((element) {
                       messages.add(Message.fromSnapshot(element));
                     });
-                    if (snapshot.data.docs.length > 0) {
-                      checkAndUpdateLastMessageSeen(
-                          messages.first, snapshot.data.docs[0].id, myUserId);
+                    if (snapshot.data!.docs.length > 0) {
+                      checkAndUpdateLastMessageSeen(messages.first, snapshot.data!.docs[0].id, myUserId);
                     }
-                    if (_scrollController.hasClients)
-                      _scrollController.jumpTo(0.0);
+                    if (_scrollController.hasClients) _scrollController.jumpTo(0.0);
 
-                    List<bool> showTimeList = new List<bool>(messages.length);
+                    List<bool?> showTimeList = [];
+                    messages.forEach((element) {
+                      showTimeList.add(null);
+                    });
 
                     for (int i = messages.length - 1; i >= 0; i--) {
-                      bool shouldShow = i == (messages.length - 1)
-                          ? true
-                          : shouldShowTime(messages[i], messages[i + 1]);
+                      bool shouldShow =
+                          i == (messages.length - 1) ? true : shouldShowTime(messages[i], messages[i + 1]);
                       showTimeList[i] = shouldShow;
                     }
                     return ListView.builder(
@@ -93,8 +88,7 @@ class ChatScreen extends StatelessWidget {
                           title: MessageBubble(
                               epochTimeMs: item.epochTimeMs,
                               text: item.text,
-                              isSenderMyUser:
-                                  messages[index].senderId == myUserId,
+                              isSenderMyUser: messages[index].senderId == myUserId,
                               includeTime: showTimeList[index]),
                         );
                       },
@@ -104,18 +98,17 @@ class ChatScreen extends StatelessWidget {
         ]));
   }
 
-  void sendMessage(String myUserId) {
+  void sendMessage(String? myUserId) {
     if (messageTextController.text.isEmpty) return;
 
-    Message message = Message(DateTime.now().millisecondsSinceEpoch, false,
-        myUserId, messageTextController.text);
+    Message message = Message(DateTime.now().millisecondsSinceEpoch, false, myUserId, messageTextController.text);
     Chat updatedChat = Chat(chatId, message);
     _databaseSource.addMessage(chatId, message);
     _databaseSource.updateChat(updatedChat);
     messageTextController.clear();
   }
 
-  Widget getBottomContainer(BuildContext context, String myUserId) {
+  Widget getBottomContainer(BuildContext context, String? myUserId) {
     return Container(
       decoration: BoxDecoration(
         border: Border(
@@ -137,8 +130,7 @@ class ChatScreen extends StatelessWidget {
                 style: TextStyle(color: kSecondaryColor),
                 decoration: InputDecoration(
                     labelText: 'Message',
-                    labelStyle:
-                        TextStyle(color: kSecondaryColor.withOpacity(0.5)),
+                    labelStyle: TextStyle(color: kSecondaryColor.withOpacity(0.5)),
                     contentPadding: EdgeInsets.all(0)),
               ),
             ),
@@ -146,8 +138,7 @@ class ChatScreen extends StatelessWidget {
               padding: EdgeInsets.all(10),
               highlightElevation: 0,
               elevation: 0,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
               child: Text(
                 "SEND",
                 style: Theme.of(context).textTheme.bodyText1,

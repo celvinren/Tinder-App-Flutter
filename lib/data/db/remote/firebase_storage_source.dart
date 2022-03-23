@@ -6,7 +6,7 @@ class FirebaseStorageSource {
   FirebaseStorage instance = FirebaseStorage.instance;
 
   Future<Response<String>> uploadUserProfilePhoto(
-      String filePath, String userId) async {
+      String filePath, String? userId) async {
     String userPhotoPath = "user_photos/$userId/profile_photo";
 
     try {

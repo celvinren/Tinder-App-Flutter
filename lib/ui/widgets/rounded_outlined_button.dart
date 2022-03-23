@@ -5,7 +5,7 @@ class RoundedOutlinedButton extends StatelessWidget {
   final String text;
   final Function onPressed;
 
-  RoundedOutlinedButton({@required this.text, @required this.onPressed});
+  RoundedOutlinedButton({required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class RoundedOutlinedButton extends StatelessWidget {
           highlightedBorderColor: kAccentColor,
           borderSide: BorderSide(color: kSecondaryColor, width: 2.0),
           child: Text(text, style: Theme.of(context).textTheme.button),
-          onPressed: onPressed,
+          onPressed: onPressed as void Function()?,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
           ),

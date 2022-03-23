@@ -6,7 +6,7 @@ class EmailAndPasswordScreen extends StatelessWidget {
   final Function(String) passwordOnChanged;
 
   EmailAndPasswordScreen(
-      {@required this.emailOnChanged, @required this.passwordOnChanged});
+      {required this.emailOnChanged, required this.passwordOnChanged});
 
   @override
   Widget build(BuildContext context) {

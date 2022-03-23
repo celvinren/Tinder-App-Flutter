@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> checkIfUserExists() async {
-    String userId = await SharedPreferencesUtil.getUserId();
+    String? userId = await SharedPreferencesUtil.getUserId();
     Navigator.pop(context);
     if (userId != null) {
       Navigator.pushNamed(context, TopNavigationScreen.id);
